@@ -26,7 +26,7 @@ else
     echo print_r($dados);
 	$senha_banco = $dados["senha"];
 	
-   	if ($senha == $senha_banco) // confere senha
+   	if ($senha != $senha_banco) // confere senha
 	{
 		echo "<html><body>";
 		echo "<p align=\"center\">A senha está incorreta!</p>";
