@@ -1,18 +1,18 @@
 <?php
+include "9.1-conecta_mysql.php";
 // obtém os valores digitados
 $email = $_POST["email"];
 $senha = $_POST["senha"];
 
-include "9.1-conecta_mysql.php";
+
 
 // Escapa os caracteres especiais, para evitar ataques de SQL Injection
 $email = $conexao->real_escape_string($email);
 $senha = $conexao->real_escape_string($senha);
 
 // acesso ao banco de dados
-$resultado = $conexao->query("SELECT * FROM usuarios WHERE email = '$email'");
+$resultado = $conexao->query("SELECT * FROM usuarios WHERE email='$email'");
 $linhas = $resultado->num_rows;
-// var_dump($linhas); // 1
 if($linhas==0)  // testa se a consulta retornou algum registro
 {
 	echo "<html><body>";
@@ -22,11 +22,8 @@ if($linhas==0)  // testa se a consulta retornou algum registro
 }
 else
 {
-    $dados = $resultado->fetch_array(MYSQLI_ASSOC);
-    var_dump($dados);
-    echo "<br>";
-    $senha_banco = $dados['senha'];
-    echo var_dump($senha_banco);
+	$dados = $resultado->fetch_array();
+	$senha_banco = $dados["senha"];
 	
    	if ($senha != $senha_banco) // confere senha
 	{
